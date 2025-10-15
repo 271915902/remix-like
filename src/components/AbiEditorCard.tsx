@@ -19,7 +19,7 @@ export default function AbiEditorCard({
 }) {
   return (
     <Card className="space-y-4 p-4 sm:p-6 rounded-lg border border-black/10 dark:border-white/10 shadow-sm bg-white dark:bg-neutral-900">
-      <Label>合约地址</Label>
+      <Label>合约地址(确保是当前网络下合约地址)</Label>
       <Input className="font-mono" placeholder="0x..." value={addrText} onChange={(e) => setAddrText(e.target.value)} />
       <Label>ABI JSON</Label>
       <Textarea

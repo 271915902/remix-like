@@ -37,8 +37,8 @@ export default function Home() {
       const json = JSON.parse(abiText) as AbiItem[];
       setAbiErr("");
       return json;
-    } catch (e: any) {
-      setAbiErr(e?.message || "ABI 解析失败");
+    } catch (e: unknown) {
+      setAbiErr(e instanceof Error ? e.message : "ABI 解析失败");
       return null;
     }
   }, [abiText]);
@@ -73,7 +73,7 @@ export default function Home() {
       />
 
       {parsedAbi && addrText && addrText.startsWith("0x") && (
-        <FunctionsPanel abi={parsedAbi as any} address={addrText as `0x${string}`} />
+        <FunctionsPanel abi={parsedAbi!} address={addrText as `0x${string}`} />
       )}
     </div>
   );
