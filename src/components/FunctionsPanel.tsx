@@ -32,14 +32,14 @@ export default function FunctionsPanel({ abi, address }: { abi: AbiItem[]; addre
           <div className="text-sm font-medium">只读函数</div>
           {views.length === 0 && <div className="text-sm text-foreground/60">无</div>}
           {views.map((item, i) => (
-            <FunctionForm key={`v-${i}`} item={item} abi={abi as any} address={address} isView />
+            <FunctionForm key={`v-${i}`} item={item} abi={abi} address={address} isView />
           ))}
         </div>
         <div className="grid gap-4">
           <div className="text-sm font-medium">写入/交易函数</div>
           {writes.length === 0 && <div className="text-sm text-foreground/60">无</div>}
           {writes.map((item, i) => (
-            <FunctionForm key={`w-${i}`} item={item} abi={abi as any} address={address} isView={false} />
+            <FunctionForm key={`w-${i}`} item={item} abi={abi} address={address} isView={false} />
           ))}
         </div>
       </div>

@@ -25,7 +25,7 @@ function coerceArg(type: string, raw: string | boolean) {
   return raw as string;
 }
 
-function stringifyResult(value: any): string {
+function stringifyResult(value: unknown): string {
   try {
     if (typeof value === "string") return value;
     if (typeof value === "bigint") return value.toString();
@@ -53,7 +53,7 @@ export default function FunctionForm({
   const { writeContractAsync, isPending } = useWriteContract();
   const [args, setArgs] = useState<Record<string, string | boolean>>({});
   const [valueEth, setValueEth] = useState<string>("");
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<unknown>(null);
   const [error, setError] = useState<string>("");
 
   const onChangeArg = (idx: number, v: string | boolean) => {
@@ -75,7 +75,7 @@ export default function FunctionForm({
           abi,
           address,
           functionName: fn,
-          args: coerced as any,
+          args: coerced,
         });
         setResult(data);
       } else {
@@ -83,7 +83,7 @@ export default function FunctionForm({
           abi,
           address,
           functionName: fn,
-          args: coerced as any,
+          args: coerced,
           value:
             item.stateMutability === "payable" && valueEth
               ? parseEther(valueEth)
@@ -91,8 +91,8 @@ export default function FunctionForm({
         });
         setResult(txHash);
       }
-    } catch (e: any) {
-      setError(e?.message || String(e));
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : String(e));
     }
   };
 

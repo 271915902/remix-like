@@ -10,8 +10,9 @@ import { chains as wagmiChains } from "@/lib/wagmi";
 
 export default function ChainSignCard() {
   const { isConnected, chainId } = useAccount();
-  const chainsHook = useChains() as any;
-  const chains = chainsHook && chainsHook.length ? chainsHook : wagmiChains;
+  type SimpleChain = { id: number; name: string };
+  const chainsHook = useChains();
+  const chains: SimpleChain[] = (chainsHook && chainsHook.length ? chainsHook : wagmiChains) as SimpleChain[];
   const { switchChain, isPending: switching } = useSwitchChain();
   const { signMessageAsync, data: signature } = useSignMessage();
 
@@ -36,7 +37,7 @@ export default function ChainSignCard() {
             onChange={(e) => switchChain({ chainId: Number(e.target.value) })}
             disabled={!isConnected || switching}
           >
-            {chains.map((c: any) => (
+            {chains.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name}
               </option>
